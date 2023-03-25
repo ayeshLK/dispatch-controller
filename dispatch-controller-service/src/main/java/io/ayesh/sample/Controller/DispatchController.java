@@ -27,7 +27,7 @@ public class DispatchController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @GetMapping("/${serialNumber}/battery-capacity")
+    @GetMapping("/{serialNumber}/battery-capacity")
     ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("serialNumber") String serialNumber) {
         BatteryCapacity batteryCapacity = new BatteryCapacity();
         batteryCapacity.setDroneSerialNumber("abc1");
@@ -35,12 +35,12 @@ public class DispatchController {
         return ResponseEntity.ok().body(batteryCapacity);
     }
 
-    @GetMapping("/${serialNumber}/medications")
+    @GetMapping("/{serialNumber}/medications")
     ResponseEntity<List<Medication>> getMedications(@PathVariable("serialNumber") String serialNumber) {
         return ResponseEntity.ok().body(Collections.emptyList());
     }
 
-    @PostMapping("/${serialNumber}/medications")
+    @PostMapping("/{serialNumber}/medications")
     ResponseEntity<String> loadMedication(@PathVariable("serialNumber") String serialNumber,
                                           @Valid @RequestBody List<Medication> medications) {
         return ResponseEntity.accepted().build();
