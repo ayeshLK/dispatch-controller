@@ -21,6 +21,7 @@
 		<spring.boot.version>3.0.5</spring.boot.version>
 		<h2.version>2.1.214</h2.version>
 		<testcontainers.version>1.17.6</testcontainers.version>
+		<maven.jib.version>3.3.1</maven.jib.version>
 	</properties>
 
 	<dependencyManagement>
@@ -56,6 +57,11 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-maven-plugin</artifactId>
 					<version>${spring.boot.version}</version>
+				</plugin>
+				<plugin>
+					<groupId>com.google.cloud.tools</groupId>
+					<artifactId>jib-maven-plugin</artifactId>
+					<version>${maven.jib.version}</version>
 				</plugin>
 			</plugins>
 		</pluginManagement>
