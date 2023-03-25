@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,21 +27,22 @@ public class DispatchController {
         return ResponseEntity.ok(Collections.emptyList());
     }
 
-    @GetMapping("/${droneId}/battery-capacity")
-    ResponseEntity<BatteryCapacity> getBatteryCapacity() {
+    @GetMapping("/${serialNumber}/battery-capacity")
+    ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("serialNumber") String serialNumber) {
         BatteryCapacity batteryCapacity = new BatteryCapacity();
         batteryCapacity.setDroneSerialNumber("abc1");
         batteryCapacity.setBatteryPercentage(0.89);
         return ResponseEntity.ok().body(batteryCapacity);
     }
 
-    @GetMapping("/${droneId}/medications")
-    ResponseEntity<List<Medication>> getMedications() {
+    @GetMapping("/${serialNumber}/medications")
+    ResponseEntity<List<Medication>> getMedications(@PathVariable("serialNumber") String serialNumber) {
         return ResponseEntity.ok().body(Collections.emptyList());
     }
 
-    @PostMapping("/${droneId}/medications")
-    ResponseEntity<String> loadMedication(@Valid @RequestBody List<Medication> medications) {
+    @PostMapping("/${serialNumber}/medications")
+    ResponseEntity<String> loadMedication(@PathVariable("serialNumber") String serialNumber,
+                                          @Valid @RequestBody List<Medication> medications) {
         return ResponseEntity.accepted().build();
     }
 }
