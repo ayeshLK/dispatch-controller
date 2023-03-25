@@ -7,6 +7,6 @@ public class Medication {
     private int loadId;
     private String code;
     private String name;
-    private float weight;
+    private double weight;
     private String image;
 }

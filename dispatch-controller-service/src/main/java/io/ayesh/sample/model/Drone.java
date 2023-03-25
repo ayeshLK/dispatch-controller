@@ -4,10 +4,9 @@ import lombok.Data;
 
 @Data
 public class Drone {
-    private int id;
     private String serialNumber;
     private DroneModel model;
-    private float weightLimit;
-    private float batteryPercentage;
+    private double weightLimit;
+    private double batteryCapacity;
     private DroneStatus state;
 }
