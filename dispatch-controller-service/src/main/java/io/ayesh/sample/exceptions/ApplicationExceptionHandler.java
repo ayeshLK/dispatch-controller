@@ -1,5 +1,6 @@
 package io.ayesh.sample.exceptions;
 
+import io.ayesh.sample.responses.ServiceResponses;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -18,52 +19,52 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(DataAccessException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
-    ErrorResponses.CommonErrorResponse onDataAccessException(DataAccessException dataAccessException) {
-        return new ErrorResponses.CommonErrorResponse(dataAccessException.getMessage());
+    ServiceResponses.CommonErrorResponse onDataAccessException(DataAccessException dataAccessException) {
+        return new ServiceResponses.CommonErrorResponse(dataAccessException.getMessage());
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorResponses.CommonErrorResponse onHttpMessageNotReadable(HttpMessageNotReadableException messageNotReadable) {
-        return new ErrorResponses.CommonErrorResponse(messageNotReadable.getMessage());
+    ServiceResponses.CommonErrorResponse onHttpMessageNotReadable(HttpMessageNotReadableException messageNotReadable) {
+        return new ServiceResponses.CommonErrorResponse(messageNotReadable.getMessage());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorResponses.ValidationErrorResponse onMethodArgumentNotValid(MethodArgumentNotValidException argumentNotValid) {
-        List<ErrorResponses.Error> errors = argumentNotValid
+    ServiceResponses.ValidationErrorResponse onMethodArgumentNotValid(MethodArgumentNotValidException argumentNotValid) {
+        List<ServiceResponses.Error> errors = argumentNotValid
                 .getBindingResult()
                 .getFieldErrors().stream()
-                .map(fieldError -> new ErrorResponses.Error(fieldError.getField(), fieldError.getDefaultMessage()))
+                .map(fieldError -> new ServiceResponses.Error(fieldError.getField(), fieldError.getDefaultMessage()))
                 .toList();
-        return new ErrorResponses.ValidationErrorResponse(errors);
+        return new ServiceResponses.ValidationErrorResponse(errors);
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorResponses.ValidationErrorResponse onConstraintViolation(ConstraintViolationException constraintViolation) {
-        List<ErrorResponses.Error> errors = constraintViolation
+    ServiceResponses.ValidationErrorResponse onConstraintViolation(ConstraintViolationException constraintViolation) {
+        List<ServiceResponses.Error> errors = constraintViolation
                 .getConstraintViolations().stream()
                 .map(violation ->
-                        new ErrorResponses.Error("id", violation.getMessage()))
+                        new ServiceResponses.Error("id", violation.getMessage()))
                 .toList();
-        return new ErrorResponses.ValidationErrorResponse(errors);
+        return new ServiceResponses.ValidationErrorResponse(errors);
     }
 
     @ExceptionHandler(UnsupportedDroneStateException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorResponses.CommonErrorResponse onUnsupportedDroneState(UnsupportedDroneStateException unsupportedDroneState) {
-        return new ErrorResponses.CommonErrorResponse(unsupportedDroneState.getMessage());
+    ServiceResponses.CommonErrorResponse onUnsupportedDroneState(UnsupportedDroneStateException unsupportedDroneState) {
+        return new ServiceResponses.CommonErrorResponse(unsupportedDroneState.getMessage());
     }
 
     @ExceptionHandler(DroneOverloadedException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ErrorResponses.CommonErrorResponse onDroneOverloaded(DroneOverloadedException droneOverloaded) {
-        return new ErrorResponses.CommonErrorResponse(droneOverloaded.getMessage());
+    ServiceResponses.CommonErrorResponse onDroneOverloaded(DroneOverloadedException droneOverloaded) {
+        return new ServiceResponses.CommonErrorResponse(droneOverloaded.getMessage());
     }
 }
