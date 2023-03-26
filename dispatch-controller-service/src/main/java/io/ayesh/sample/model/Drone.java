@@ -17,11 +17,6 @@ public class Drone {
             message = "The maximum allowed length for the Serial Number is {max} characters"
     )
     private String serialNumber;
-    @NotBlank
-    @EnumNamePattern(
-            regexp = "Lightweight|Middleweight|Cruiserweight|Heavyweight",
-            message = "The drone model must one of Lightweight, Middleweight, Cruiserweight, or Heavyweight"
-    )
     private DroneModel model;
     @NotNull
     @DecimalMax(
