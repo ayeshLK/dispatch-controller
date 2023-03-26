@@ -30,7 +30,7 @@ public class ShipmentRepositoryImpl implements ShipmentRepository {
     public int createNewShipment(int droneId) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("droneId", droneId)
-                .addValue("status", ShipmentStatus.IN_PROGRESS);
+                .addValue("status", ShipmentStatus.IN_PROGRESS.name());
         return jdbcTemplate.update(CREATE_SHIPMENT, parameters);
     }
 
