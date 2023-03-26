@@ -2,19 +2,21 @@ package io.ayesh.sample.repository;
 
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
-import io.ayesh.sample.model.DroneStatus;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface DroneRepository {
-    boolean droneExists(String serialNumber);
+    int createDrone(Drone drone);
 
-    int addDrone(Drone drone);
+    boolean droneExistsById(int droneId);
 
-    Optional<Drone> getDrone(int droneId);
+    boolean droneExistsBySerialNumber(String serialNumber);
 
-    List<Drone> getDronesForStatus(List<DroneStatus> droneStatus);
+    Drone findDroneById(int droneId);
 
-    Optional<BatteryCapacity> getDroneBatterCapacity(int droneId);
+    List<Drone> findDronesByBatteryLevelLessThan(double batteryLevel);
+
+    List<Drone> getDronesForStatus(List<String> droneStatus);
+
+    BatteryCapacity getDroneBatterCapacity(int droneId);
 }
