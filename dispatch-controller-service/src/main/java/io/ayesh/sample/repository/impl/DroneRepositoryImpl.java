@@ -2,6 +2,7 @@ package io.ayesh.sample.repository.impl;
 
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
+import io.ayesh.sample.model.DroneStatus;
 import io.ayesh.sample.repository.DroneRepository;
 import io.ayesh.sample.repository.impl.mapper.BatteryCapacityRowMapper;
 import io.ayesh.sample.repository.impl.mapper.DroneRowMapper;
@@ -42,10 +43,10 @@ public class DroneRepositoryImpl implements DroneRepository {
     public int createDrone(Drone drone) {
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("serialNumber", drone.getSerialNumber())
-                .addValue("model", drone.getModel())
+                .addValue("model", drone.getModel().name())
                 .addValue("weightLimit", drone.getWeightLimit())
                 .addValue("batteryCapacity", drone.getBatteryCapacity())
-                .addValue("state", drone.getState());
+                .addValue("state", drone.getState().name());
         return jdbcTemplate.update(CREATE_DRONE_SQL, parameters);
     }
 
@@ -56,7 +57,7 @@ public class DroneRepositoryImpl implements DroneRepository {
                 new MapSqlParameterSource("id", droneId),
                 Integer.class
         );
-        return Objects.nonNull(count) && count == 0;
+        return Objects.nonNull(count) && count == 1;
     }
 
     @Override
@@ -66,7 +67,7 @@ public class DroneRepositoryImpl implements DroneRepository {
                 new MapSqlParameterSource("serialNumber", serialNumber),
                 Integer.class
         );
-        return Objects.nonNull(count) && count != 0;
+        return Objects.nonNull(count) && count == 1;
     }
 
     @Override
@@ -88,10 +89,10 @@ public class DroneRepositoryImpl implements DroneRepository {
     }
 
     @Override
-    public List<Drone> getDronesForStatus(List<String> droneStatus) {
+    public List<Drone> getDronesForStatus(List<DroneStatus> droneStatus) {
         return jdbcTemplate.query(
                 FIND_DRONES_BY_STATE,
-                new MapSqlParameterSource("states", droneStatus),
+                new MapSqlParameterSource("states", droneStatus.stream().map(DroneStatus::name).toList()),
                 DRONE_ROW_MAPPER
         );
     }

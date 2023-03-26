@@ -2,6 +2,7 @@ package io.ayesh.sample.repository;
 
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
+import io.ayesh.sample.model.DroneStatus;
 
 import java.util.List;
 
@@ -16,7 +17,7 @@ public interface DroneRepository {
 
     List<Drone> findDronesByBatteryLevelLessThan(double batteryLevel);
 
-    List<Drone> getDronesForStatus(List<String> droneStatus);
+    List<Drone> getDronesForStatus(List<DroneStatus> droneStatus);
 
     BatteryCapacity getDroneBatterCapacity(int droneId);
 }
