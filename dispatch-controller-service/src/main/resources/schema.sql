@@ -4,7 +4,7 @@ CREATE TABLE drone (
     model ENUM('Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight') NOT NULL,
     weight_limit DOUBLE NOT NULL,
     battery_capacity DOUBLE NOT NULL,
-    state ENUM('IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING') NOT NULL,
+    state ENUM('IDLE', 'LOADING', 'LOADED', 'DELIVERING', 'DELIVERED', 'RETURNING', 'DRAINED') NOT NULL,
     PRIMARY KEY (id)
 );
 
