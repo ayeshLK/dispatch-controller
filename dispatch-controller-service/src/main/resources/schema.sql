@@ -1,6 +1,6 @@
 CREATE TABLE drone (
     id INTEGER NOT NULL AUTO_INCREMENT,
-    serial_number VARCHAR(100) NOT NULL,
+    serial_number VARCHAR(100) NOT NULL UNIQUE,
     model ENUM('Lightweight', 'Middleweight', 'Cruiserweight', 'Heavyweight'),
     weight_limit DECIMAL(5, 2) NOT NULL,
     battery_capacity DECIMAL(3, 2) NOT NULL
