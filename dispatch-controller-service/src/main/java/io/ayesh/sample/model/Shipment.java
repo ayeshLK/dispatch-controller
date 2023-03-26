@@ -3,7 +3,7 @@ package io.ayesh.sample.model;
 import lombok.Data;
 
 @Data
-public class DroneLoad {
+public class Shipment {
     private int id;
     private String droneId;
 }
