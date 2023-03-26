@@ -36,10 +36,10 @@ public class DispatchController {
     }
 
     @GetMapping(
-            value = "/drones/{serialNumber}/battery-capacity",
+            value = "/drones/{id}/battery-capacity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("serialNumber") String serialNumber) {
+    ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("id") int droneId) {
         BatteryCapacity batteryCapacity = new BatteryCapacity();
         batteryCapacity.setDroneSerialNumber("abc1");
         batteryCapacity.setBatteryPercentage(0.89);
@@ -47,20 +47,21 @@ public class DispatchController {
     }
 
     @GetMapping(
-            value = "/drones/{serialNumber}/medications",
+            value = "/drones/{id}/medications",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<List<Medication>> getMedications(@PathVariable("serialNumber") String serialNumber) {
+    ResponseEntity<List<Medication>> getMedications(@PathVariable("id") int droneId) {
         return ResponseEntity.ok().body(Collections.emptyList());
     }
 
     @PostMapping(
-            value = "/drones/{serialNumber}/medications",
+            value = "/drones/{id}/medications",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<String> loadMedication(@PathVariable("serialNumber") String serialNumber,
+    ResponseEntity<String> loadMedication(@PathVariable("id") int droneId,
                                           @Valid @RequestBody List<Medication> medications) {
+        // todo: rethink load-medication API
         return ResponseEntity.accepted().build();
     }
 }

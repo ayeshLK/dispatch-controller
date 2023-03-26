@@ -5,5 +5,5 @@ import lombok.Data;
 @Data
 public class DroneLoad {
     private int id;
-    private String droneSerialNumber;
+    private String droneId;
 }
