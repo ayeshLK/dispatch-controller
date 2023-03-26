@@ -9,31 +9,35 @@ VALUES ('ABC123', 'Lightweight', 400.00, 0.80, 'IDLE'),
        ('STU901', 'Cruiserweight', 600.00, 0.50, 'IDLE'),
        ('VWX234', 'Heavyweight', 700.00, 0.45, 'LOADING'),
        ('YZA567', 'Lightweight', 400.00, 0.40, 'LOADED'),
-       ('BCD890', 'Middleweight', 500.00, 0.35, 'DELIVERING');
+       ('BCD890', 'Middleweight', 500.00, 0.35, 'DELIVERED');
 
 -- Insert dummy data for Shipment table
-INSERT INTO shipment (drone_id)
-VALUES (1), (2), (3), (4), (5), (6), (7), (8), (9), (10);
+INSERT INTO shipment (drone_id, status)
+VALUES (2, 'IN_PROGRESS'),
+       (3, 'IN_PROGRESS'),
+       (4, 'IN_PROGRESS'),
+       (5, 'DELIVERED'),
+       (6, 'IN_PROGRESS'),
+       (8, 'IN_PROGRESS'),
+       (9, 'IN_PROGRESS'),
+       (10, 'DELIVERED');
 
 -- Insert dummy data for Medication table
-INSERT INTO medication (shipment_id, code, name, image)
-VALUES (1, 'MED001', 'Medication 1', 'medication1.jpg'),
-       (1, 'MED002', 'Medication 2', 'medication2.jpg'),
-       (2, 'MED003', 'Medication 3', 'medication3.jpg'),
-       (2, 'MED004', 'Medication 4', 'medication4.jpg'),
-       (3, 'MED005', 'Medication 5', 'medication5.jpg'),
-       (3, 'MED006', 'Medication 6', 'medication6.jpg'),
-       (4, 'MED007', 'Medication 7', 'medication7.jpg'),
-       (4, 'MED008', 'Medication 8', 'medication8.jpg'),
-       (5, 'MED009', 'Medication 9', 'medication9.jpg'),
-       (5, 'MED010', 'Medication 10', 'medication10.jpg'),
-       (6, 'MED011', 'Medication 11', 'medication11.jpg'),
-       (6, 'MED012', 'Medication 12', 'medication12.jpg'),
-       (7, 'MED013', 'Medication 13', 'medication13.jpg'),
-       (7, 'MED014', 'Medication 14', 'medication14.jpg'),
-       (8, 'MED015', 'Medication 15', 'medication15.jpg'),
-       (8, 'MED016', 'Medication 16', 'medication16.jpg'),
-       (9, 'MED017', 'Medication 17', 'medication17.jpg'),
-       (9, 'MED018', 'Medication 18', 'medication18.jpg'),
-       (10, 'MED019', 'Medication 19', 'medication19.jpg'),
-       (10, 'MED020', 'Medication 20', 'medication20.jpg');
+INSERT INTO medication (shipment_id, code, name, weight_limit, image)
+VALUES (1, 'MED001', 'Medication 1', 100.00, 'https://example.com/medication1.png'),
+       (1, 'MED002', 'Medication 2', 100.00, 'https://example.com/medication2.png'),
+       (2, 'MED003', 'Medication 3', 100.00, 'https://example.com/medication3.png'),
+       (2, 'MED004', 'Medication 4', 150.00, 'https://example.com/medication4.png'),
+       (3, 'MED005', 'Medication 5', 100.00, 'https://example.com/medication5.png'),
+       (3, 'MED006', 'Medication 6', 250.00, 'https://example.com/medication6.png'),
+       (4, 'MED007', 'Medication 7', 300.00, 'https://example.com/medication7.png'),
+       (4, 'MED008', 'Medication 8', 200.00, 'https://example.com/medication8.png'),
+       (5, 'MED009', 'Medication 9', 60.00, 'https://example.com/medication9.png'),
+       (5, 'MED010', 'Medication 10', 80.00, 'https://example.com/medication10.png'),
+       (6, 'MED011', 'Medication 11', 90.00, 'https://example.com/medication11.png'),
+       (6, 'MED012', 'Medication 12', 90.00, 'https://example.com/medication12.png'),
+       (7, 'MED015', 'Medication 15', 200.00, 'https://example.com/medication15.png'),
+       (8, 'MED016', 'Medication 16', 100.00, 'https://example.com/medication16.png'),
+       (8, 'MED017', 'Medication 17', 150.00, 'https://example.com/medication17.png'),
+       (8, 'MED018', 'Medication 18', 180.00, 'https://example.com/medication18.png'),
+       (8, 'MED019', 'Medication 19', 70.00, 'https://example.com/medication19.png');
