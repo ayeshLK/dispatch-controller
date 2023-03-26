@@ -9,6 +9,8 @@ import java.util.List;
 public interface DroneRepository {
     int createDrone(Drone drone);
 
+    int batchUpdateDroneStatus(List<Integer> droneIds, DroneStatus droneStatus);
+
     boolean droneExistsById(int droneId);
 
     boolean droneExistsBySerialNumber(String serialNumber);
@@ -16,6 +18,8 @@ public interface DroneRepository {
     Drone findDroneById(int droneId);
 
     List<Drone> findDronesByBatteryLevelLessThan(double batteryLevel);
+
+    List<Drone> getAllDrones();
 
     List<Drone> getDronesForStatus(List<DroneStatus> droneStatus);
 

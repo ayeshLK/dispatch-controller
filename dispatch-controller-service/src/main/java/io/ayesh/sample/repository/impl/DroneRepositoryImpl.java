@@ -20,6 +20,7 @@ public class DroneRepositoryImpl implements DroneRepository {
     private static final String CREATE_DRONE_SQL =
             "INSERT INTO drone (serial_number, model, weight_limit, battery_capacity, state) " +
                     "VALUES (:serialNumber, :model, :weightLimit, :batteryCapacity, :state)";
+    private static final String UPDATE_DRONE_STATUS = "UPDATE drone SET state = :state WHERE id in (:ids)";
     private static final String DRONE_EXISTS_BY_ID = "SELECT COUNT(*) FROM drone WHERE id= :id";
     private static final String DRONE_EXISTS_BY_SERIAL_NUMBER =
             "SELECT COUNT(*) FROM drone WHERE serial_number= :serialNumber";
@@ -27,6 +28,7 @@ public class DroneRepositoryImpl implements DroneRepository {
     private static final String FIND_DRONE_BY_ID = "SELECT * FROM drone WHERE id= :id";
     private static final String FIND_DRONES_BY_BATTERY_LEVEL =
             "SELECT * FROM drone WHERE battery_capacity < :batteryCapacity";
+    private static final String FIND_ALL_DRONES = "SELECT * FROM drone";
     private static final String FIND_DRONES_BY_STATE = "SELECT * FROM drone WHERE state in (:states)";
     private static final String FIND_DRONE_BATTERY_CAPACITY = "SELECT id, battery_capacity FROM drone WHERE id= :id";
     private static final RowMapper<Drone> DRONE_ROW_MAPPER = new DroneRowMapper();
@@ -48,6 +50,14 @@ public class DroneRepositoryImpl implements DroneRepository {
                 .addValue("batteryCapacity", drone.getBatteryCapacity())
                 .addValue("state", drone.getState().name());
         return jdbcTemplate.update(CREATE_DRONE_SQL, parameters);
+    }
+
+    @Override
+    public int batchUpdateDroneStatus(List<Integer> droneIds, DroneStatus droneStatus) {
+        MapSqlParameterSource parameters = new MapSqlParameterSource()
+                .addValue("state", droneStatus)
+                .addValue("ids", droneIds);
+        return jdbcTemplate.update(UPDATE_DRONE_STATUS, parameters);
     }
 
     @Override
@@ -86,6 +96,11 @@ public class DroneRepositoryImpl implements DroneRepository {
                 new MapSqlParameterSource("batteryCapacity", batteryLevel),
                 DRONE_ROW_MAPPER
         );
+    }
+
+    @Override
+    public List<Drone> getAllDrones() {
+        return jdbcTemplate.query(FIND_ALL_DRONES, DRONE_ROW_MAPPER);
     }
 
     @Override
