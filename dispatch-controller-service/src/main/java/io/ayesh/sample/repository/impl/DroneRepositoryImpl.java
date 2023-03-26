@@ -66,7 +66,7 @@ public class DroneRepositoryImpl implements DroneRepository {
                 new MapSqlParameterSource("serialNumber", serialNumber),
                 Integer.class
         );
-        return Objects.nonNull(count) && count == 0;
+        return Objects.nonNull(count) && count != 0;
     }
 
     @Override

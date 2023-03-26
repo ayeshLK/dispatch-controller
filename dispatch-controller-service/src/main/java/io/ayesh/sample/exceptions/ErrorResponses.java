@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface ErrorResponses {
     record CommonClientError(String message){}
-    record ValidationErrorResponse(List<Violation> violations) {}
-    record Violation(String fieldName, String message) {}
+    record ValidationErrorResponse(List<Error> errors) {}
+    record Error(String fieldName, String message) {}
 }
