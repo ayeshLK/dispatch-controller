@@ -6,7 +6,6 @@ import io.ayesh.sample.repository.DroneRepository;
 import io.ayesh.sample.repository.impl.mapper.BatteryCapacityRowMapper;
 import io.ayesh.sample.repository.impl.mapper.DroneRowMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -34,10 +33,12 @@ public class DroneRepositoryImpl implements DroneRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
-    @Autowired
-    public DroneRepositoryImpl(JdbcTemplate classicJdbcTemplate) {
-        this.jdbcTemplate = new NamedParameterJdbcTemplate(classicJdbcTemplate);
+    public DroneRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
     }
+
+    @Autowired
+
 
     @Override
     public int createDrone(Drone drone) {
