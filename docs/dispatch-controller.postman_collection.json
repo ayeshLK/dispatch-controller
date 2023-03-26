@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "e37248c0-e82d-4e73-913d-946c093ceddd",
+		"name": "dispatch-controller",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "7355273"
+	},
+	"item": [
+		{
+			"name": "get-drones-available-for-loading",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/dispatch-controller/drones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"dispatch-controller",
+						"drones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "register-drone",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"serialNumber\": \"S1232\",\n    \"model\": \"Middleweight\",\n    \"weightLimit\": 500.01,\n    \"batteryCapacity\": 0.75\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/dispatch-controller/drones",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"dispatch-controller",
+						"drones"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-battery-capacity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/dispatch-controller/drones/30/battery-capacity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"dispatch-controller",
+						"drones",
+						"30",
+						"battery-capacity"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-medications",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/dispatch-controller/drones/2/medications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"dispatch-controller",
+						"drones",
+						"2",
+						"medications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "load-medication",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"name\": \"Medication_1\",\n        \"weight\": 30.0,\n        \"code\": \"MED001\",\n        \"image\": \"https://example.com/medication1.png\"\n    },\n    {\n        \"name\": \"Medication_2\",\n        \"weight\": 10.0,\n        \"code\": \"MED002\",\n        \"image\": \"https://example.com/medication2.png\"\n    }\n]\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9000/dispatch-controller/drones/1/medications",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"dispatch-controller",
+						"drones",
+						"1",
+						"medications"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
