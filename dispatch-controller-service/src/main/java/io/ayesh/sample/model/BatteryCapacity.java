@@ -4,6 +4,6 @@ import lombok.Data;
 
 @Data
 public class BatteryCapacity {
-    private String droneSerialNumber;
+    private int droneId;
     private double batteryPercentage;
 }
