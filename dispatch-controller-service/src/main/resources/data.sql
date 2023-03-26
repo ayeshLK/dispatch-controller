@@ -1,14 +1,14 @@
 -- Insert dummy data for Drone table
 INSERT INTO drone (serial_number, model, weight_limit, battery_capacity, state)
-VALUES ('ABC123', 'Lightweight', 400.00, 0.80, 'IDLE'),
+VALUES ('ABC123', 'Lightweight', 500.00, 0.80, 'IDLE'),
        ('DEF456', 'Middleweight', 500.00, 0.75, 'LOADING'),
-       ('GHI789', 'Cruiserweight', 600.00, 0.70, 'LOADED'),
-       ('JKL012', 'Heavyweight', 700.00, 0.65, 'DELIVERING'),
-       ('MNO345', 'Lightweight', 400.00, 0.60, 'DELIVERED'),
+       ('GHI789', 'Cruiserweight', 500.00, 0.70, 'LOADED'),
+       ('JKL012', 'Heavyweight', 500.00, 0.65, 'DELIVERING'),
+       ('MNO345', 'Lightweight', 500.00, 0.60, 'DELIVERED'),
        ('PQR678', 'Middleweight', 500.00, 0.55, 'RETURNING'),
-       ('STU901', 'Cruiserweight', 600.00, 0.50, 'IDLE'),
-       ('VWX234', 'Heavyweight', 700.00, 0.45, 'LOADING'),
-       ('YZA567', 'Lightweight', 400.00, 0.40, 'LOADED'),
+       ('STU901', 'Cruiserweight', 500.00, 0.50, 'IDLE'),
+       ('VWX234', 'Heavyweight', 500.00, 0.45, 'LOADING'),
+       ('YZA567', 'Lightweight', 500.00, 0.40, 'LOADED'),
        ('BCD890', 'Middleweight', 500.00, 0.35, 'DELIVERED');
 
 -- Insert dummy data for Shipment table
