@@ -33,12 +33,10 @@ public class DroneRepositoryImpl implements DroneRepository {
 
     private final NamedParameterJdbcTemplate jdbcTemplate;
 
+    @Autowired
     public DroneRepositoryImpl(NamedParameterJdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
-
-    @Autowired
-
 
     @Override
     public int createDrone(Drone drone) {

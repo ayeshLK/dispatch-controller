@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class DroneRowMapper implements RowMapper<Drone> {
+
     @Override
     public Drone mapRow(ResultSet result, int rowNum) throws SQLException {
         Drone drone = new Drone();
