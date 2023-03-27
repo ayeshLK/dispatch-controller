@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -43,13 +44,15 @@ public class DroneRepositoryImpl implements DroneRepository {
 
     @Override
     public int createDrone(Drone drone) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("serialNumber", drone.getSerialNumber())
                 .addValue("model", drone.getModel().name())
                 .addValue("weightLimit", drone.getWeightLimit())
                 .addValue("batteryCapacity", drone.getBatteryCapacity())
                 .addValue("state", drone.getState().name());
-        return jdbcTemplate.update(CREATE_DRONE_SQL, parameters);
+        jdbcTemplate.update(CREATE_DRONE_SQL, parameters, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
     @Override

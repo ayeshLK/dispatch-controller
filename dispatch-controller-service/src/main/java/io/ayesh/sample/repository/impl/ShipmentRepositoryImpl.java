@@ -9,8 +9,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.stereotype.Repository;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Repository
@@ -28,10 +30,12 @@ public class ShipmentRepositoryImpl implements ShipmentRepository {
 
     @Override
     public int createNewShipment(int droneId) {
+        GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
         MapSqlParameterSource parameters = new MapSqlParameterSource()
                 .addValue("droneId", droneId)
                 .addValue("status", ShipmentStatus.IN_PROGRESS.name());
-        return jdbcTemplate.update(CREATE_SHIPMENT, parameters);
+        jdbcTemplate.update(CREATE_SHIPMENT, parameters, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).intValue();
     }
 
     @Override
