@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public class MedicationRepositoryImpl implements MedicationRepository {
     private static final String CREATE_MEDICATIONS = "INSERT INTO medication (shipment_id, code, name, weight_limit, image) " +
-            "VALUES (:shipmentId, :code, :name, :weightLimit, :image)";
+            "VALUES (:shipmentId, :code, :name, :weight, :image)";
     private static final String FIND_MEDICATIONS_FOR_SHIPMENT =
             "SELECT * FROM medication WHERE shipment_id = :shipmentId";
     private static final RowMapper<Medication> MEDICATION_ROW_MAPPER = new MedicationRowMapper();
@@ -31,7 +31,7 @@ public class MedicationRepositoryImpl implements MedicationRepository {
     @Override
     public int[] createMedications(List<Medication> medications) {
         SqlParameterSource[] batch = SqlParameterSourceUtils.createBatch(medications);
-        return jdbcTemplate.batchUpdate("", batch);
+        return jdbcTemplate.batchUpdate(CREATE_MEDICATIONS, batch);
     }
 
     @Override
