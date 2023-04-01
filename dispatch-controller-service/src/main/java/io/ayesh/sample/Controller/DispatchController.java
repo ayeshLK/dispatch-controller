@@ -73,7 +73,8 @@ public class DispatchController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<ServiceResponses.CommonResponse> loadMedication(@PathVariable("id") @DroneIdConstraint int droneId,
-                                                    @Valid @RequestBody List<Medication> medications) throws Exception {
+                                                                   @Valid @RequestBody List<Medication> medications)
+            throws Exception {
         dispatchControllerService.loadMedication(droneId, medications);
         return ResponseEntity.accepted().body(
                 new ServiceResponses.CommonResponse("Medications were successfully loaded onto the drone"));

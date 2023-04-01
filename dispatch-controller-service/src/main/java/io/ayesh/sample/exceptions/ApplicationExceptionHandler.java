@@ -33,7 +33,8 @@ public class ApplicationExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ServiceResponses.ValidationErrorResponse onMethodArgumentNotValid(MethodArgumentNotValidException argumentNotValid) {
+    ServiceResponses.ValidationErrorResponse onMethodArgumentNotValid(
+            MethodArgumentNotValidException argumentNotValid) {
         List<ServiceResponses.Error> errors = argumentNotValid
                 .getBindingResult()
                 .getFieldErrors().stream()
