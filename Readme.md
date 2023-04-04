@@ -36,8 +36,7 @@ mvn clean install
 
 ### Test Application ###
 
-Since, we are using maven when we build the project it usually executes the tests as well. But, to run the tests
-separately run the following command.
+Maven usually runs tests when we build the project. But, to run the tests separately, execute the following command.
 ```shell
 mvn clean install
 ```
@@ -53,7 +52,7 @@ java -jar dispatch-controller-service/target/dispatch-controller-service-0.0.1-S
 
 #### Run a Docker Container ####
 
-To build the docker container, run the following command.
+To build the docker container, execute the following command.
 ```shell
 mvn compile jib:dockerBuild
 ```
