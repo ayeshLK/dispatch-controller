@@ -1,6 +1,11 @@
 name: Project PR Build
 
-on: [pull_request]
+on:
+  pull_request:
+    paths-ignore:
+      - '*.md'
+      - '_docs/**'
+      - '_images/**'
 
 jobs:
   build:
