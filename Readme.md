@@ -22,8 +22,8 @@ An H2 in-memory database is utilized in this project to streamline the developme
 Project also contains a [Postman collection](_docs/dispatch-controller.postman_collection.json) which can be used to test the API.
 
 ## Prerequisites
-OpenJDK 17+
-Maven 3.8.5.+
+- OpenJDK 17+
+- Maven 3.8.5.+
 
 ## Build, Test, and Run ##
 
