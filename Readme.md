@@ -14,10 +14,10 @@ RESTful API to which clients can connect and perform required actions.
 - Since storing a raw-image is a database is expensive, `image` for the `Medication` will be provided as a URL.
 - Once the battery-capacity of the `Drone` is less that 25% (0.25) the drone will go into `DRAINED` state.
 - Application uses an in-memory database (H2).
-- Postman collection to test the API can be found [here](docs/dispatch-controller.postman_collection.json).
+- Postman collection to test the API can be found [here](_docs/dispatch-controller.postman_collection.json).
 
 With the above assumptions the DB design looks like following:
-![ER Diagram](dispatch_controller_er_diagram.png)
+![ER Diagram](_images/dispatch_controller_er_diagram.png)
 
 ## Build, Test, and Run ##
 
