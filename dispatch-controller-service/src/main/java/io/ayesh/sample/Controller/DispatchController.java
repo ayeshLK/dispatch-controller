@@ -7,6 +7,7 @@ import io.ayesh.sample.responses.ServiceResponses;
 import io.ayesh.sample.service.DispatchControllerService;
 import io.ayesh.sample.validation.DroneIdConstraint;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -73,7 +74,11 @@ public class DispatchController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<ServiceResponses.CommonResponse> loadMedication(@PathVariable("id") @DroneIdConstraint int droneId,
-                                                                   @Valid @RequestBody List<Medication> medications)
+                                                                   @RequestBody
+                                                                   @NotEmpty(
+                                                                           message = "Medication list cannot be empty"
+                                                                   )
+                                                                   List<@Valid Medication> medications)
             throws Exception {
         dispatchControllerService.loadMedication(droneId, medications);
         return ResponseEntity.accepted().body(
