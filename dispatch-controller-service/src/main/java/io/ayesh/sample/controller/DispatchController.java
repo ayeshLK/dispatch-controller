@@ -1,4 +1,4 @@
-package io.ayesh.sample.Controller;
+package io.ayesh.sample.controller;
 
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
