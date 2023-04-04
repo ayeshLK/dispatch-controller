@@ -1,5 +1,7 @@
 # Dispatch Controller
 
+[![Build](https://github.com/ayeshLK/dispatch-controller/actions/workflows/daily-build.yml/badge.svg)](https://github.com/ayeshLK/dispatch-controller/actions/workflows/daily-build.yml)
+
 *Dispatch Controller* simulates a drone based medicine logistics management system. Clients can connect to the system and carry out necessary actions through the RESTful API provided by the `dispatch-controller-service`.
 
 The application's top-level component diagram is shown below.
