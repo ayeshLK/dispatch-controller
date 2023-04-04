@@ -50,7 +50,7 @@ public class ApplicationExceptionHandler {
         List<ServiceResponses.Error> errors = constraintViolation
                 .getConstraintViolations().stream()
                 .map(violation ->
-                        new ServiceResponses.Error("id", violation.getMessage()))
+                        new ServiceResponses.Error(violation.getPropertyPath().toString(), violation.getMessage()))
                 .toList();
         return new ServiceResponses.ValidationErrorResponse(errors);
     }
