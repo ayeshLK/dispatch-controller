@@ -1,37 +1,40 @@
-# Dispatch Controller #
+# Dispatch Controller
 
-This project demonstrates a drone based logistic management system for medicines. The `dispatch-controller-service`, exposes a
-RESTful API to which clients can connect and perform required actions.
+*Dispatch Controller* simulates a drone based medicine logistics management system. Clients can connect to the system and carry out necessary actions through the RESTful API provided by the `dispatch-controller-service`.
 
-## Prerequisites ##
-- OpenJDK 17+
-- Maven 3.8.5.+
+The application's top-level component diagram is shown below.
 
-## Assumptions ##
+![component-diagram](_images/component-diagram.png)
 
-- `Drone` will transport logistics in shipments. Once, a shipment is successfully delivered it can be re-used.
-- `Serial Number` of a `Drone` is unique, hence there can be no two drones which has the same `Serial Number`.
-- Since storing a raw-image is a database is expensive, `image` for the `Medication` will be provided as a URL.
-- Once the battery-capacity of the `Drone` is less that 25% (0.25) the drone will go into `DRAINED` state.
-- Application uses an in-memory database (H2).
-- Postman collection to test the API can be found [here](_docs/dispatch-controller.postman_collection.json).
+Following functional areas will be covered during the implementation of this project:
+1. RESTful API development using Spring Boot
+2. Spring Boot validations
+3. Spring Boot database connectivity (via JDBC)
+4. Spring Boot testing
 
-With the above assumptions the DB design looks like following:
-![ER Diagram](_images/dispatch_controller_er_diagram.png)
+An H2 in-memory database is utilized in this project to streamline the development process. The proposed structure of the database for the application is shown in the following ER diagram.
+
+![er-diagram](_images/er-diagram.png)
+
+Project also contains a [Postman collection](_docs/dispatch-controller.postman_collection.json) which can be used to test the API.
+
+## Prerequisites
+OpenJDK 17+
+Maven 3.8.5.+
 
 ## Build, Test, and Run ##
 
 ### Build Application ###
 
-Execute following command to build the application.
+Execute the following command to build the application.
 ```shell
 mvn clean install
 ```
 
 ### Test Application ###
 
-Since, we are using maven when we build the project it usually executes the tests as well. But, to run the tests 
-separately run following command.
+Since, we are using maven when we build the project it usually executes the tests as well. But, to run the tests
+separately run the following command.
 ```shell
 mvn clean install
 ```
@@ -40,19 +43,19 @@ mvn clean install
 
 #### Run Locally ####
 
-Once you build the project execute following command to run the app locally.
+Once you build the project execute the following command to run the app locally.
 ```shell
 java -jar dispatch-controller-service/target/dispatch-controller-service-0.0.1-SNAPSHOT.jar
 ```
 
 #### Run a Docker Container ####
 
-To build the docker container, run following command.
+To build the docker container, run the following command.
 ```shell
 mvn compile jib:dockerBuild
 ```
 
-To run the docker container, execute following command.
+To run the docker container, execute the following command.
 ```shell
 docker run -p 9000:9000 -t -d dispatch-controller-service:0.0.1-SNAPSHOT
 ```
