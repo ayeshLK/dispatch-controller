@@ -16,7 +16,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-      - name: Run the Maven verify phase
+      - name: Run the Maven dependency download phase
         run: mvn clean --batch-mode --update-snapshots dependency:copy-dependencies -DoutputDirectory=./target/lib
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
@@ -26,4 +26,3 @@ jobs:
           format: 'table'
           timeout: '10m0s'
           exit-code: '1'
-          
