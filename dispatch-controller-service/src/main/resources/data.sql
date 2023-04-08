@@ -23,7 +23,7 @@ VALUES (2, 'IN_PROGRESS'),
        (10, 'DELIVERED');
 
 -- Insert dummy data for Medication table
-INSERT INTO medication (shipment_id, code, name, weight_limit, image)
+INSERT INTO medication (shipment_id, code, name, weight, image)
 VALUES (1, 'MED001', 'Medication 1', 100.00, 'https://example.com/medication1.png'),
        (1, 'MED002', 'Medication 2', 100.00, 'https://example.com/medication2.png'),
        (2, 'MED003', 'Medication 3', 100.00, 'https://example.com/medication3.png'),

@@ -15,7 +15,7 @@ import java.util.List;
 
 @Repository
 public class MedicationRepositoryImpl implements MedicationRepository {
-    private static final String CREATE_MEDICATIONS = "INSERT INTO medication (shipment_id, code, name, weight_limit, image) " +
+    private static final String CREATE_MEDICATIONS = "INSERT INTO medication (shipment_id, code, name, weight, image) " +
             "VALUES (:shipmentId, :code, :name, :weight, :image)";
     private static final String FIND_MEDICATIONS_FOR_SHIPMENT =
             "SELECT * FROM medication WHERE shipment_id = :shipmentId";

@@ -14,6 +14,7 @@ public class MedicationRowMapper implements RowMapper<Medication> {
         medication.setId(rs.getInt("id"));
         medication.setName(rs.getString("name"));
         medication.setCode(rs.getString("code"));
+        medication.setWeight(rs.getDouble("weight"));
         medication.setShipmentId(rs.getInt("shipment_id"));
         medication.setImage(rs.getString("image"));
         return medication;

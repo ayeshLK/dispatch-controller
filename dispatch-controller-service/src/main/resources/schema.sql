@@ -21,7 +21,7 @@ CREATE TABLE medication (
     shipment_id INTEGER NOT NULL,
     code VARCHAR(100) NOT NULL,
     name VARCHAR(100) NOT NULL,
-    weight_limit DOUBLE NOT NULL,
+    weight DOUBLE NOT NULL,
     image VARCHAR(100) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (shipment_id) REFERENCES shipment(id)
