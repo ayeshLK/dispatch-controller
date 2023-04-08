@@ -38,7 +38,7 @@ mvn clean install
 
 Maven usually runs tests when we build the project. But, to run the tests separately, execute the following command.
 ```shell
-mvn clean install
+mvn clean test
 ```
 
 ### Run Application ###
