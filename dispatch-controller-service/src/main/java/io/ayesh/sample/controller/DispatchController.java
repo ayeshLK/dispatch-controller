@@ -17,11 +17,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/drones")
 @Validated
 public class DispatchController {
     private final DispatchControllerService dispatchControllerService;
@@ -32,7 +34,6 @@ public class DispatchController {
     }
 
     @PostMapping(
-            value = "/drones",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
@@ -42,7 +43,6 @@ public class DispatchController {
     }
 
     @GetMapping(
-            value = "/drones",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<List<Drone>> getDronesAvailableForLoading() {
@@ -51,7 +51,7 @@ public class DispatchController {
     }
 
     @GetMapping(
-            value = "/drones/{id}/battery-capacity",
+            value = "/{id}/battery-capacity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("id") @DroneIdConstraint int droneId) {
@@ -60,7 +60,7 @@ public class DispatchController {
     }
 
     @GetMapping(
-            value = "/drones/{id}/medications",
+            value = "/{id}/medications",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     ResponseEntity<List<Medication>> getMedications(@PathVariable("id") @DroneIdConstraint int droneId) {
@@ -69,7 +69,7 @@ public class DispatchController {
     }
 
     @PostMapping(
-            value = "/drones/{id}/medications",
+            value = "/{id}/medications",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
