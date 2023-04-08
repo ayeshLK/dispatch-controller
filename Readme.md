@@ -10,10 +10,11 @@ The application's top-level component diagram is shown below.
 ![component-diagram](_images/component-diagram.png)
 
 Following functional areas will be covered during the implementation of this project:
-1. RESTful API development using Spring Boot
-2. Spring Boot validations
-3. Spring Boot database connectivity (via JDBC)
-4. Spring Boot testing
+1. RESTful API development using Spring Boot.
+2. Spring Boot validations.
+3. Spring Boot database connectivity (via JDBC).
+4. Running a periodic task using Spring Scheduling.
+5. Spring Boot testing.
 
 An H2 in-memory database is utilized in this project to streamline the development process. The proposed structure of the database for the application is shown in the following ER diagram.
 
