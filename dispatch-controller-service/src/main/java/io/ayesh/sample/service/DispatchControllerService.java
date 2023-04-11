@@ -1,7 +1,5 @@
 package io.ayesh.sample.service;
 
-import io.ayesh.sample.exceptions.DroneOverloadedException;
-import io.ayesh.sample.exceptions.UnsupportedDroneStateException;
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
 import io.ayesh.sample.model.Medication;
@@ -17,6 +15,5 @@ public interface DispatchControllerService {
 
     List<Medication> getLoadedMedications(int droneId);
 
-    void loadMedication(int droneId, List<Medication> medications)
-            throws UnsupportedDroneStateException, DroneOverloadedException;
+    void loadMedication(int droneId, List<Medication> medications);
 }

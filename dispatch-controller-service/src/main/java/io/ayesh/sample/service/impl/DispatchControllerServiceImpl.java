@@ -66,8 +66,7 @@ public class DispatchControllerServiceImpl implements DispatchControllerService 
     }
 
     @Override
-    public void loadMedication(int droneId, List<Medication> medications)
-            throws UnsupportedDroneStateException, DroneOverloadedException {
+    public void loadMedication(int droneId, List<Medication> medications) {
         Drone drone = droneRepository.findDroneById(droneId);
         if (!VALID_DRONE_STATUS_FOR_LOADING.contains(drone.getState())) {
             throw new UnsupportedDroneStateException("Current drone state does not support adding new medications");

@@ -78,8 +78,7 @@ public class DispatchController {
                                                                    @NotEmpty(
                                                                            message = "Medication list cannot be empty"
                                                                    )
-                                                                   List<@Valid Medication> medications)
-            throws Exception {
+                                                                   List<@Valid Medication> medications) {
         dispatchControllerService.loadMedication(droneId, medications);
         return ResponseEntity.accepted().body(
                 new ServiceResponses.CommonResponse("Medications were successfully loaded onto the drone"));
