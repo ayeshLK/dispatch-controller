@@ -1,6 +1,7 @@
 package io.ayesh.sample.service.impl;
 
 import io.ayesh.sample.exceptions.DroneOverloadedException;
+import io.ayesh.sample.exceptions.ResourceNotFoundException;
 import io.ayesh.sample.exceptions.UnsupportedDroneStateException;
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
@@ -52,11 +53,13 @@ public class DispatchControllerServiceImpl implements DispatchControllerService 
 
     @Override
     public BatteryCapacity getBatteryCapacity(int droneId) {
+        validateDroneAvailability(droneId);
         return droneRepository.getDroneBatterCapacity(droneId);
     }
 
     @Override
     public List<Medication> getLoadedMedications(int droneId) {
+        validateDroneAvailability(droneId);
         Optional<Shipment> currentShipment = shipmentRepository.getCurrentShipment(droneId);
         if (currentShipment.isEmpty()) {
             return Collections.emptyList();
@@ -67,6 +70,7 @@ public class DispatchControllerServiceImpl implements DispatchControllerService 
 
     @Override
     public void loadMedication(int droneId, List<Medication> medications) {
+        validateDroneAvailability(droneId);
         Drone drone = droneRepository.findDroneById(droneId);
         if (!VALID_DRONE_STATUS_FOR_LOADING.contains(drone.getState())) {
             throw new UnsupportedDroneStateException("Current drone state does not support adding new medications");
@@ -84,6 +88,13 @@ public class DispatchControllerServiceImpl implements DispatchControllerService 
         }
         medications.forEach(medication -> medication.setShipmentId(currentShipment.getId()));
         medicationRepository.createMedications(medications);
+    }
+
+    private void validateDroneAvailability(int droneId) {
+        boolean droneExists = droneRepository.droneExistsById(droneId);
+        if (!droneExists) {
+            throw new ResourceNotFoundException("Drone", String.format("%d", droneId));
+        }
     }
 
     private Shipment getOrCreateLatestShipment(int droneId) {

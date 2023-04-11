@@ -27,6 +27,12 @@ public class ApplicationExceptionHandler {
         return new ServiceResponses.CommonErrorResponse(messageNotReadable.getMessage());
     }
 
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    ServiceResponses.CommonErrorResponse onResourceNotFound(ResourceNotFoundException resourceNotFound) {
+        return new ServiceResponses.CommonErrorResponse(resourceNotFound.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ServiceResponses.ValidationErrorResponse onMethodArgumentNotValid(

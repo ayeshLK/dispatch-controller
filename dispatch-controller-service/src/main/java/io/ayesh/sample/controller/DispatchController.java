@@ -5,7 +5,6 @@ import io.ayesh.sample.model.Drone;
 import io.ayesh.sample.model.Medication;
 import io.ayesh.sample.responses.ServiceResponses;
 import io.ayesh.sample.service.DispatchControllerService;
-import io.ayesh.sample.validation.DroneIdConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class DispatchController {
             value = "/{id}/battery-capacity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("id") @DroneIdConstraint int droneId) {
+    ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("id") int droneId) {
         BatteryCapacity batteryCapacity = dispatchControllerService.getBatteryCapacity(droneId);
         return ResponseEntity.ok().body(batteryCapacity);
     }
@@ -63,7 +62,7 @@ public class DispatchController {
             value = "/{id}/medications",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<List<Medication>> getMedications(@PathVariable("id") @DroneIdConstraint int droneId) {
+    ResponseEntity<List<Medication>> getMedications(@PathVariable("id") int droneId) {
         List<Medication> loadedMedications = dispatchControllerService.getLoadedMedications(droneId);
         return ResponseEntity.ok().body(loadedMedications);
     }
@@ -73,7 +72,7 @@ public class DispatchController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<ServiceResponses.CommonResponse> loadMedication(@PathVariable("id") @DroneIdConstraint int droneId,
+    ResponseEntity<ServiceResponses.CommonResponse> loadMedication(@PathVariable("id") int droneId,
                                                                    @RequestBody
                                                                    @NotEmpty(
                                                                            message = "Medication list cannot be empty"
