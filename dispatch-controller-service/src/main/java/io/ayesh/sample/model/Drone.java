@@ -15,7 +15,7 @@ public class Drone {
     @NotBlank
     @Size(
             max = 100,
-            message = "The maximum allowed length for the Serial Number is {max} characters"
+            message = "The maximum allowed length for the Serial Number is 100 characters"
     )
     @SerialNumberConstraint
     private String serialNumber;
@@ -23,14 +23,14 @@ public class Drone {
     @NotNull
     @DecimalMax(
             value = "500.00",
-            message = "The maximum allowed weight is {max} grams"
+            message = "The maximum allowed weight is 500.0 grams"
     )
     @Digits(integer=3, fraction=2)
     private double weightLimit;
     @NotNull
     @DecimalMax(
             value = "1.00",
-            message = "The battery percentage must be less than or equal to {max}"
+            message = "The battery percentage must be less than or equal to 1.00"
     )
     @Digits(integer=1, fraction=2)
     private double batteryCapacity;
