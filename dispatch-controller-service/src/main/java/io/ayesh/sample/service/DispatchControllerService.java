@@ -9,6 +9,8 @@ import java.util.List;
 public interface DispatchControllerService {
     Drone registerDrone(Drone drone);
 
+    Drone getDrone(int droneId);
+
     List<Drone> getDronesAvailableForLoading();
 
     BatteryCapacity getBatteryCapacity(int droneId);

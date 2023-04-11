@@ -47,6 +47,12 @@ public class DispatchControllerServiceImpl implements DispatchControllerService 
     }
 
     @Override
+    public Drone getDrone(int droneId) {
+        validateDroneAvailability(droneId);
+        return droneRepository.findDroneById(droneId);
+    }
+
+    @Override
     public List<Drone> getDronesAvailableForLoading() {
         return droneRepository.getDronesForStatus(VALID_DRONE_STATUS_FOR_LOADING);
     }
