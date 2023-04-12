@@ -4,7 +4,7 @@ import lombok.Data;
 import org.springframework.hateoas.RepresentationModel;
 
 @Data
-public class DroneModel extends RepresentationModel<DroneModel> {
+public class DroneHateoasModel extends RepresentationModel<DroneHateoasModel> {
     private int id;
     private String serialNumber;
     private String model;

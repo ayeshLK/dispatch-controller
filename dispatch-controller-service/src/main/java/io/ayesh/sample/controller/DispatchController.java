@@ -1,6 +1,6 @@
 package io.ayesh.sample.controller;
 
-import io.ayesh.sample.hateoas.DroneModel;
+import io.ayesh.sample.hateoas.DroneHateoasModel;
 import io.ayesh.sample.hateoas.DroneModelAssembler;
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
@@ -41,9 +41,9 @@ public class DispatchController {
     @GetMapping(
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<CollectionModel<DroneModel>> getDronesAvailableForLoading() {
+    public ResponseEntity<CollectionModel<DroneHateoasModel>> getDronesAvailableForLoading() {
         List<Drone> availableDrones = dispatchControllerService.getDronesAvailableForLoading();
-        CollectionModel<DroneModel> droneModels = droneModelAssembler.toCollectionModel(availableDrones);
+        CollectionModel<DroneHateoasModel> droneModels = droneModelAssembler.toCollectionModel(availableDrones);
         return ResponseEntity.ok(droneModels);
     }
 
@@ -51,20 +51,20 @@ public class DispatchController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DroneModel> registerDrone(@Valid @RequestBody Drone drone) {
+    public ResponseEntity<DroneHateoasModel> registerDrone(@Valid @RequestBody Drone drone) {
         Drone createdDrone = dispatchControllerService.registerDrone(drone);
-        DroneModel droneModel = droneModelAssembler.toModel(createdDrone);
-        return ResponseEntity.status(HttpStatus.CREATED).body(droneModel);
+        DroneHateoasModel droneHateoasModel = droneModelAssembler.toModel(createdDrone);
+        return ResponseEntity.status(HttpStatus.CREATED).body(droneHateoasModel);
     }
 
     @GetMapping(
             value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public ResponseEntity<DroneModel> getDrone(@PathVariable("id") int droneId) {
+    public ResponseEntity<DroneHateoasModel> getDrone(@PathVariable("id") int droneId) {
         Drone drone = dispatchControllerService.getDrone(droneId);
-        DroneModel droneModel = droneModelAssembler.toModel(drone);
-        return ResponseEntity.ok().body(droneModel);
+        DroneHateoasModel droneHateoasModel = droneModelAssembler.toModel(drone);
+        return ResponseEntity.ok().body(droneHateoasModel);
     }
 
     @GetMapping(

@@ -10,39 +10,39 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
-public class DroneModelAssembler extends RepresentationModelAssemblerSupport<Drone, DroneModel> {
+public class DroneModelAssembler extends RepresentationModelAssemblerSupport<Drone, DroneHateoasModel> {
 
     public DroneModelAssembler() {
-        super(DispatchController.class, DroneModel.class);
+        super(DispatchController.class, DroneHateoasModel.class);
     }
 
     @Override
-    public DroneModel toModel(Drone entity) {
-        DroneModel droneModel = instantiateModel(entity);
-        droneModel.setId(entity.getId());
-        droneModel.setModel(entity.getModel().name());
-        droneModel.setBatteryCapacity(entity.getBatteryCapacity());
-        droneModel.setSerialNumber(entity.getSerialNumber());
-        droneModel.setState(entity.getState().name());
-        droneModel.setWeightLimit(entity.getWeightLimit());
-        droneModel.add(
+    public DroneHateoasModel toModel(Drone entity) {
+        DroneHateoasModel droneHateoasModel = instantiateModel(entity);
+        droneHateoasModel.setId(entity.getId());
+        droneHateoasModel.setModel(entity.getModel().name());
+        droneHateoasModel.setBatteryCapacity(entity.getBatteryCapacity());
+        droneHateoasModel.setSerialNumber(entity.getSerialNumber());
+        droneHateoasModel.setState(entity.getState().name());
+        droneHateoasModel.setWeightLimit(entity.getWeightLimit());
+        droneHateoasModel.add(
                 linkTo(methodOn(DispatchController.class).getDrone(entity.getId()))
                         .withSelfRel()
         );
-        droneModel.add(
+        droneHateoasModel.add(
                 linkTo(methodOn(DispatchController.class).getBatteryCapacity(entity.getId()))
                         .withRel("battery-capacity")
         );
-        droneModel.add(
+        droneHateoasModel.add(
                 linkTo(methodOn(DispatchController.class).getMedications(entity.getId()))
                         .withRel("medications")
         );
-        return droneModel;
+        return droneHateoasModel;
     }
 
     @Override
-    public CollectionModel<DroneModel> toCollectionModel(Iterable<? extends Drone> entities) {
-        CollectionModel<DroneModel> droneModels = super.toCollectionModel(entities);
+    public CollectionModel<DroneHateoasModel> toCollectionModel(Iterable<? extends Drone> entities) {
+        CollectionModel<DroneHateoasModel> droneModels = super.toCollectionModel(entities);
         droneModels.add(
                 linkTo(methodOn(DispatchController.class).getDronesAvailableForLoading())
                         .withSelfRel()

@@ -1,5 +1,6 @@
 package io.ayesh.sample;
 
+import io.ayesh.sample.hateoas.DroneHateoasModel;
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
 import io.ayesh.sample.model.DroneModel;
@@ -38,10 +39,10 @@ public class DispatchControllerServiceAppTest {
         drone.setModel(DroneModel.Lightweight);
         drone.setWeightLimit(300.00);
         drone.setBatteryCapacity(0.75);
-        io.ayesh.sample.hateoas.DroneModel responseBody = restTemplate.postForObject(
+        DroneHateoasModel responseBody = restTemplate.postForObject(
                 String.format("http://localhost:%d/dispatch-controller/drones", port),
                 drone,
-                io.ayesh.sample.hateoas.DroneModel.class
+                DroneHateoasModel.class
         );
         assertThat(responseBody.getId()).isNotNull().isGreaterThan(0);
         assertThat(DroneStatus.valueOf(responseBody.getState())).isEqualTo(DroneStatus.IDLE);
@@ -49,7 +50,7 @@ public class DispatchControllerServiceAppTest {
 
     @Test
     public void getDronesAvailableForLoading() {
-        ResponseEntity<CollectionModel<io.ayesh.sample.hateoas.DroneModel>> responseEntity = restTemplate.exchange(
+        ResponseEntity<CollectionModel<DroneHateoasModel>> responseEntity = restTemplate.exchange(
                 String.format("http://localhost:%d/dispatch-controller/drones", port),
                 HttpMethod.GET,
                 null,
@@ -57,7 +58,7 @@ public class DispatchControllerServiceAppTest {
         );
         assertThat(responseEntity).isNotNull();
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        CollectionModel<io.ayesh.sample.hateoas.DroneModel> responsePayload = responseEntity.getBody();
+        CollectionModel<DroneHateoasModel> responsePayload = responseEntity.getBody();
         assertThat(responsePayload).isNotNull();
         assertThat(responsePayload.getContent().size()).isGreaterThan(0);
     }
