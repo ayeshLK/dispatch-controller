@@ -8,10 +8,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
-import org.springframework.hateoas.RepresentationModel;
 
 @Data
-public class Drone extends RepresentationModel<Drone> {
+public class Drone {
     private int id;
     @NotBlank
     @Size(
@@ -26,14 +25,14 @@ public class Drone extends RepresentationModel<Drone> {
             value = "500.00",
             message = "The maximum allowed weight is 500.0 grams"
     )
-    @Digits(integer=3, fraction=2)
+    @Digits(integer = 3, fraction = 2)
     private double weightLimit;
     @NotNull
     @DecimalMax(
             value = "1.00",
             message = "The battery percentage must be less than or equal to 1.00"
     )
-    @Digits(integer=1, fraction=2)
+    @Digits(integer = 1, fraction = 2)
     private double batteryCapacity;
     @EnumNamePattern(
             regexp = "IDLE",
