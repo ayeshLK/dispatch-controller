@@ -1,6 +1,7 @@
 package io.ayesh.sample.service.impl;
 
 import io.ayesh.sample.exceptions.DroneOverloadedException;
+import io.ayesh.sample.exceptions.ResourceConflictException;
 import io.ayesh.sample.exceptions.ResourceNotFoundException;
 import io.ayesh.sample.exceptions.UnsupportedDroneStateException;
 import io.ayesh.sample.model.BatteryCapacity;
@@ -41,6 +42,10 @@ public class DispatchControllerServiceImpl implements DispatchControllerService 
 
     @Override
     public Drone registerDrone(Drone drone) {
+        boolean serialNumberExists = droneRepository.droneExistsBySerialNumber(drone.getSerialNumber());
+        if (serialNumberExists) {
+            throw new ResourceConflictException("Drone", "serialNumber", drone.getSerialNumber());
+        }
         int droneId = droneRepository.createDrone(drone);
         drone.setId(droneId);
         return drone;

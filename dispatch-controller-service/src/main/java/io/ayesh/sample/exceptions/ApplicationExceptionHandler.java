@@ -33,6 +33,12 @@ public class ApplicationExceptionHandler {
         return new ServiceResponses.CommonErrorResponse(resourceNotFound.getMessage());
     }
 
+    @ExceptionHandler(ResourceConflictException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    ServiceResponses.CommonErrorResponse onResourceConflict(ResourceConflictException resourceConflict) {
+        return new ServiceResponses.CommonErrorResponse(resourceConflict.getMessage());
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     ServiceResponses.ValidationErrorResponse onMethodArgumentNotValid(

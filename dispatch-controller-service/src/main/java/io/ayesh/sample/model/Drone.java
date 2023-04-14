@@ -1,7 +1,6 @@
 package io.ayesh.sample.model;
 
 import io.ayesh.sample.validation.EnumNamePattern;
-import io.ayesh.sample.validation.SerialNumberConstraint;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
@@ -17,7 +16,6 @@ public class Drone {
             max = 100,
             message = "The maximum allowed length for the Serial Number is 100 characters"
     )
-    @SerialNumberConstraint
     private String serialNumber;
     private DroneModel model;
     @NotNull
