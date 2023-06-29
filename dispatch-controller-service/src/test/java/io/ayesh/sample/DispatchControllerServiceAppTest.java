@@ -1,5 +1,6 @@
 package io.ayesh.sample;
 
+import io.ayesh.sample.hateoas.DroneHateoasModel;
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
 import io.ayesh.sample.model.DroneModel;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -37,18 +39,18 @@ public class DispatchControllerServiceAppTest {
         drone.setModel(DroneModel.Lightweight);
         drone.setWeightLimit(300.00);
         drone.setBatteryCapacity(0.75);
-        Drone responseBody = restTemplate.postForObject(
+        DroneHateoasModel responseBody = restTemplate.postForObject(
                 String.format("http://localhost:%d/dispatch-controller/drones", port),
                 drone,
-                Drone.class
+                DroneHateoasModel.class
         );
         assertThat(responseBody.getId()).isNotNull().isGreaterThan(0);
-        assertThat(responseBody.getState()).isEqualTo(DroneStatus.IDLE);
+        assertThat(DroneStatus.valueOf(responseBody.getState())).isEqualTo(DroneStatus.IDLE);
     }
 
     @Test
     public void getDronesAvailableForLoading() {
-        ResponseEntity<List<Drone>> responseEntity = restTemplate.exchange(
+        ResponseEntity<CollectionModel<DroneHateoasModel>> responseEntity = restTemplate.exchange(
                 String.format("http://localhost:%d/dispatch-controller/drones", port),
                 HttpMethod.GET,
                 null,
@@ -56,9 +58,9 @@ public class DispatchControllerServiceAppTest {
         );
         assertThat(responseEntity).isNotNull();
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
-        List<Drone> responsePayload = responseEntity.getBody();
+        CollectionModel<DroneHateoasModel> responsePayload = responseEntity.getBody();
         assertThat(responsePayload).isNotNull();
-        assertThat(responsePayload.size()).isGreaterThan(0);
+        assertThat(responsePayload.getContent().size()).isGreaterThan(0);
     }
 
     @Test

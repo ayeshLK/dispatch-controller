@@ -1,14 +1,16 @@
 package io.ayesh.sample.controller;
 
+import io.ayesh.sample.hateoas.DroneHateoasModel;
+import io.ayesh.sample.hateoas.DroneModelAssembler;
 import io.ayesh.sample.model.BatteryCapacity;
 import io.ayesh.sample.model.Drone;
 import io.ayesh.sample.model.Medication;
 import io.ayesh.sample.responses.ServiceResponses;
 import io.ayesh.sample.service.DispatchControllerService;
-import io.ayesh.sample.validation.DroneIdConstraint;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,34 +29,49 @@ import java.util.List;
 @Validated
 public class DispatchController {
     private final DispatchControllerService dispatchControllerService;
+    private final DroneModelAssembler droneModelAssembler;
 
     @Autowired
-    public DispatchController(DispatchControllerService dispatchControllerService) {
+    public DispatchController(DispatchControllerService dispatchControllerService,
+                              DroneModelAssembler droneModelAssembler) {
         this.dispatchControllerService = dispatchControllerService;
+        this.droneModelAssembler = droneModelAssembler;
+    }
+
+    @GetMapping(
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public ResponseEntity<CollectionModel<DroneHateoasModel>> getDronesAvailableForLoading() {
+        List<Drone> availableDrones = dispatchControllerService.getDronesAvailableForLoading();
+        CollectionModel<DroneHateoasModel> droneModels = droneModelAssembler.toCollectionModel(availableDrones);
+        return ResponseEntity.ok(droneModels);
     }
 
     @PostMapping(
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<Drone> registerDrone(@Valid @RequestBody Drone drone) {
+    public ResponseEntity<DroneHateoasModel> registerDrone(@Valid @RequestBody Drone drone) {
         Drone createdDrone = dispatchControllerService.registerDrone(drone);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdDrone);
+        DroneHateoasModel droneHateoasModel = droneModelAssembler.toModel(createdDrone);
+        return ResponseEntity.status(HttpStatus.CREATED).body(droneHateoasModel);
     }
 
     @GetMapping(
+            value = "/{id}",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<List<Drone>> getDronesAvailableForLoading() {
-        List<Drone> availableDrones = dispatchControllerService.getDronesAvailableForLoading();
-        return ResponseEntity.ok(availableDrones);
+    public ResponseEntity<DroneHateoasModel> getDrone(@PathVariable("id") int droneId) {
+        Drone drone = dispatchControllerService.getDrone(droneId);
+        DroneHateoasModel droneHateoasModel = droneModelAssembler.toModel(drone);
+        return ResponseEntity.ok().body(droneHateoasModel);
     }
 
     @GetMapping(
             value = "/{id}/battery-capacity",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("id") @DroneIdConstraint int droneId) {
+    public ResponseEntity<BatteryCapacity> getBatteryCapacity(@PathVariable("id") int droneId) {
         BatteryCapacity batteryCapacity = dispatchControllerService.getBatteryCapacity(droneId);
         return ResponseEntity.ok().body(batteryCapacity);
     }
@@ -63,7 +80,7 @@ public class DispatchController {
             value = "/{id}/medications",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<List<Medication>> getMedications(@PathVariable("id") @DroneIdConstraint int droneId) {
+    public ResponseEntity<List<Medication>> getMedications(@PathVariable("id") int droneId) {
         List<Medication> loadedMedications = dispatchControllerService.getLoadedMedications(droneId);
         return ResponseEntity.ok().body(loadedMedications);
     }
@@ -73,13 +90,12 @@ public class DispatchController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    ResponseEntity<ServiceResponses.CommonResponse> loadMedication(@PathVariable("id") @DroneIdConstraint int droneId,
+    ResponseEntity<ServiceResponses.CommonResponse> loadMedication(@PathVariable("id") int droneId,
                                                                    @RequestBody
                                                                    @NotEmpty(
                                                                            message = "Medication list cannot be empty"
                                                                    )
-                                                                   List<@Valid Medication> medications)
-            throws Exception {
+                                                                   List<@Valid Medication> medications) {
         dispatchControllerService.loadMedication(droneId, medications);
         return ResponseEntity.accepted().body(
                 new ServiceResponses.CommonResponse("Medications were successfully loaded onto the drone"));

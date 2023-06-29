@@ -33,7 +33,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"serialNumber\": \"S1232\",\n    \"model\": \"Middleweight\",\n    \"weightLimit\": 500.01,\n    \"batteryCapacity\": 0.75\n}",
+					"raw": "{\n    \"serialNumber\": \"S1232\",\n    \"model\": \"Middleweight\",\n    \"weightLimit\": 500.00,\n    \"batteryCapacity\": 0.75\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -61,7 +61,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:9000/dispatch-controller/drones/30/battery-capacity",
+					"raw": "http://localhost:9000/dispatch-controller/drones/11/battery-capacity",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -70,7 +70,7 @@
 					"path": [
 						"dispatch-controller",
 						"drones",
-						"30",
+						"11",
 						"battery-capacity"
 					]
 				}
@@ -106,7 +106,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"name\": \"Medication_1\",\n        \"weight\": 30.0,\n        \"code\": \"MED001\",\n        \"image\": \"https://example.com/medication1.png\"\n    },\n    {\n        \"name\": \"Medication_2\",\n        \"weight\": 10.0,\n        \"code\": \"MED002\",\n        \"image\": \"https://example.com/medication2.png\"\n    }\n]\n",
+					"raw": "[\n    {\n        \"name\": \"Medication_1\",\n        \"weight\": 400.0,\n        \"code\": \"MED001\",\n        \"image\": \"https://example.com/medication1.png\"\n    },\n    {\n        \"name\": \"Medication_2\",\n        \"weight\": 100.0,\n        \"code\": \"MED002\",\n        \"image\": \"https://example.com/medication2.png\"\n    }\n]\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -114,7 +114,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:9000/dispatch-controller/drones/1/medications",
+					"raw": "http://localhost:9000/dispatch-controller/drones/11/medications",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -123,8 +123,29 @@
 					"path": [
 						"dispatch-controller",
 						"drones",
-						"1",
+						"11",
 						"medications"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-drone",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:9000/dispatch-controller/drones/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9000",
+					"path": [
+						"dispatch-controller",
+						"drones",
+						"11"
 					]
 				}
 			},
